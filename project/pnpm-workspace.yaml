@@ -1,0 +1,11 @@
+ignoredBuiltDependencies:
+  - '@parcel/watcher'
+  - esbuild
+  - lmdb
+  - msgpackr-extract
+minimumReleaseAge: 7200
+minimumReleaseAgeExclude:
+  - react
+  - react-dom
+onlyBuiltDependencies:
+  - '@tailwindcss/oxide'

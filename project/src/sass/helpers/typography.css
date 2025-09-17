@@ -1,0 +1,63 @@
+@utility text-preset-1 {
+  font-family: var(--ff);
+  font-size: var(--fs-32);
+  font-weight: var(--fw-bold);
+  line-height: 120%;
+  letter-spacing: 0px;
+}
+
+@utility text-preset-2 {
+  font-family: var(--ff);
+  font-size: var(--fs-24);
+  font-weight: var(--fw-bold);
+  line-height: 120%;
+  letter-spacing: 0px;
+}
+
+@utility text-preset-3-medium {
+  font-family: var(--ff);
+  font-size: var(--fs-16);
+  font-weight: var(--fw-medium);
+  line-height: 120%;
+  letter-spacing: 0px;
+}
+
+@utility text-preset-3-regular {
+  font-family: var(--ff);
+  font-size: var(--fs-16);
+  font-weight: var(--fw-normal);
+  line-height: 150%;
+  letter-spacing: 0px;
+}
+
+@utility text-preset-4-bold {
+  font-family: var(--ff);
+  font-size: var(--fs-14);
+  font-weight: var(--fw-bold);
+  line-height: 120%;
+  letter-spacing: 1px;
+}
+
+@utility text-preset-4-medium {
+  font-family: var(--ff);
+  font-size: var(--fs-14);
+  font-weight: var(--fw-medium);
+  line-height: 150%;
+  letter-spacing: 0px;
+}
+
+@utility text-preset-4-regular {
+  font-family: var(--ff);
+  font-size: var(--fs-14);
+  font-weight: var(--fw-normal);
+  line-height: 120%;
+  letter-spacing: 0px;
+}
+
+@utility text-preset-5 {
+  font-family: var(--ff);
+  font-size: var(--fs-12);
+  font-weight: var(--fw-normal);
+  line-height: 120%;
+  letter-spacing: 0px;
+}

@@ -1,0 +1,31 @@
+@use 'tailwindcss';
+
+@use './base/reset';
+@use './abstract/variables';
+
+@use './base/form';
+// @use './base/debug.scss';
+
+@use './helpers/typography.css';
+@use './helpers/colors.css';
+@use './helpers/utils.css';
+@use './helpers/scrollable';
+
+@theme {
+  --breakpoint-mobile: 375px;
+  --breakpoint-tablet: 768px;
+  --breakpoint-desktop: 1440px;
+
+  --breakpoint-sm: 23.4375em;
+  --breakpoint-md: 48em;
+  --breakpoint-lg: 1440px;
+}
+
+@layer base {
+  html {
+    font-family: var(--ff);
+    background-color: var(--clr-grey-800);
+    color: var(--clr-grey-50);
+    font-size: var(--fs-16);
+  }
+}

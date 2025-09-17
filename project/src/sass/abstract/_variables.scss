@@ -1,0 +1,59 @@
+:root {
+  --clr-white: hsl(0, 100%, 100%);
+  --clr-black: hsl(0, 0%, 0%);
+
+  --clr-grey-800: hsl(212, 24%, 26%);
+  --clr-grey-500: hsl(211, 10%, 45%);
+  --clr-grey-300: hsl(300, 0%, 50%);
+  --clr-grey-200: hsl(0, 0%, 83%);
+  --clr-grey-100: hsl(223, 19%, 93%);
+  --clr-grey-50: hsl(228, 33%, 97%);
+
+  --clr-orange-300: hsl(23, 100%, 75%);
+
+  --clr-red-500: hsl(354, 84%, 57%);
+  --clr-red-450: hsl(353, 76%, 65%);
+  --clr-red-400: hsl(354, 91%, 74%);
+
+  --clr-purple-600: hsl(243, 100%, 62%);
+  --clr-purple-500: hsl(243, 100%, 67%);
+  --clr-purple-400: hsl(243, 100%, 77%);
+  --clr-purple-200: hsl(229, 24%, 87%);
+
+  --clr-blue-950: hsl(213, 96%, 18%);
+  --clr-blue-700: hsl(213, 73%, 31%);
+  --clr-blue-300: hsl(228, 100%, 84%);
+  --clr-blue-200: hsl(206, 94%, 87%);
+  --clr-blue-100: hsl(218, 100%, 97%);
+  --clr-blue-50: hsl(231, 100%, 99%);
+
+  --ff: 'Ubuntu', sans-serif;
+
+  --fw-thin: 100;
+  --fw-extralight: 200;
+  --fw-light: 300;
+  --fw-normal: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fw-extrabold: 800;
+  --fw-black: 900;
+
+  --fs-100: 6.25rem;
+  --fs-96: 6rem;
+  --fs-80: 5rem;
+  --fs-72: 4.5rem;
+  --fs-56: 3.5rem;
+  --fs-48: 3rem;
+  --fs-40: 2.5rem;
+  --fs-32: 2rem;
+  --fs-28: 1.75rem;
+  --fs-24: 1.5rem;
+  --fs-20: 1.25rem;
+  --fs-18: 1.125rem;
+  --fs-16: 1rem;
+  --fs-14: 0.875rem;
+  --fs-13: 0.8125rem;
+  --fs-12: 0.75rem;
+  --fs-11: 0.6875rem;
+}
