@@ -24,8 +24,9 @@
 @layer base {
   html {
     font-family: var(--ff);
-    background-color: var(--clr-grey-800);
-    color: var(--clr-grey-50);
+    background-color: var(--clr-blue-100);
+    color: var(--clr-grey-500);
+    font-weight: var(--fw-medium);
     font-size: var(--fs-16);
   }
 }

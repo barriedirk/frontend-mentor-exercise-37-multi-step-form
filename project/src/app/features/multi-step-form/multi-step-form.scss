@@ -1,0 +1,54 @@
+.msf {
+  &__steps {
+    background-image: url('/assets/images/bg-sidebar-mobile.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: var(--clr-purple-500);
+    min-height: 170px;
+  }
+
+  &__list {
+    padding-top: 30px;
+  }
+
+  &__step {
+    display: grid;
+    grid-template-areas: 'badge';
+    gap: 2px;
+  }
+
+  &__badge {
+    grid-area: badge;
+  }
+
+  &__description {
+    grid-area: description;
+    display: none;
+  }
+
+  @media screen and (min-width: 48em) {
+    &__steps {
+      background-image: url('/assets/images/bg-sidebar-desktop.svg');
+      background-color: var(--clr-purple-500);
+      height: 568px;
+      width: 208px;
+      border-radius: 10px;
+    }
+
+    &__list {
+      padding-top: 40px;
+    }
+
+    &__description {
+      display: flex;
+    }
+
+    &__step {
+      grid-template-areas: 'badge description';
+      grid-template-columns: auto 1fr;
+
+      gap: 20px;
+      row-gap: 30px;
+    }
+  }
+}

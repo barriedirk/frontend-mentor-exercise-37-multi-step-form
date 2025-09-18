@@ -1,1 +1,33 @@
-<p>multi-step-form works!</p>
+<section
+  class="msf flex w-full max-w-[686px] flex-col bg-white"
+  role="group"
+  aria-labelledby="multiStepForm"
+>
+  <h1 id="multiStepForm" class="sr-only">Multi-step form</h1>
+  <div class="msf__steps flex flex-col items-center justify-start">
+    <ul class="msf__list flex flex-row justify-center gap-3.5 md:flex-col md:gap-8">
+      @for (step of steps; track step) {
+        <li
+          class="msf__step"
+          [attr.aria-current]="step.step === currentStep() ? 'step' : null"
+          [attr.aria-label]="`${step.step} - ${step.label} ${step.title}`"
+        >
+          <span
+            class="msf__badge text-preset-4-bold radious flex h-[33px] w-[33px] items-center justify-center rounded-full border border-solid border-white"
+            [ngClass]="{
+              'txt-color-950 bg-blue-200': step.step === currentStep(),
+              'txt-blue-950': step.step === currentStep(),
+              'txt-white': step.step !== currentStep(),
+            }"
+            >{{ step.step }}</span
+          >
+          <div class="msf__description flex flex-col gap-1">
+            <span class="msf__label text-preset-5 txt-blue-300">{{ step.label }}</span>
+            <strong class="msf__title text-preset-4-bold txt-white">{{ step.title }}</strong>
+          </div>
+        </li>
+      }
+    </ul>
+  </div>
+  <div id="msf__form"></div>
+</section>
