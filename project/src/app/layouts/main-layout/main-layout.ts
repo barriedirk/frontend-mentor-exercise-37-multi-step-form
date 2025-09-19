@@ -7,8 +7,8 @@ import { Footer } from './components/footer/footer';
   selector: 'app-main-layout',
   imports: [RouterModule, Footer],
   template: `
-    <div class="main_layout flex flex-col justify-center">
-      <main class="main_content flex flex-col items-center justify-center">
+    <div class="main_layout flex min-h-dvh flex-col md:justify-center">
+      <main class="main_content">
         <router-outlet />
       </main>
       <app-footer />

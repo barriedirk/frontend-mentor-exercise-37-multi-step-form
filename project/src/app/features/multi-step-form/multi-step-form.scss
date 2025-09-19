@@ -1,10 +1,24 @@
 .msf {
+  --border-radius: 10px;
+
+  max-width: 686px;
+
   &__steps {
     background-image: url('/assets/images/bg-sidebar-mobile.svg');
     background-repeat: no-repeat;
     background-size: cover;
     background-color: var(--clr-purple-500);
     min-height: 170px;
+  }
+
+  &__form {
+    width: 100%;
+    max-width: 343px;
+    min-height: 390px;
+    box-shadow: 0px 25px 40px -20px rgba(0, 0, 0, 0.0951);
+    margin: auto;
+    border-radius: var(--border-radius);
+    margin-top: -70px;
   }
 
   &__list {
@@ -27,12 +41,23 @@
   }
 
   @media screen and (min-width: 48em) {
+    border-radius: 10px;
+    box-shadow: 0px 25px 40px -20px rgba(0, 0, 0, 0.0951);
+
     &__steps {
       background-image: url('/assets/images/bg-sidebar-desktop.svg');
       background-color: var(--clr-purple-500);
       height: 568px;
       width: 208px;
-      border-radius: 10px;
+      border-radius: var(--border-radius);
+      flex: 0 0 auto;
+    }
+
+    &__form {
+      border-radius: 0;
+      box-shadow: none;
+      margin: initial;
+      max-width: 100%;
     }
 
     &__list {
@@ -49,6 +74,14 @@
 
       gap: 20px;
       row-gap: 30px;
+    }
+  }
+
+  @media screen and (min-width: 59em) {
+    max-width: 940px;
+
+    &__steps {
+      width: 274px;
     }
   }
 }

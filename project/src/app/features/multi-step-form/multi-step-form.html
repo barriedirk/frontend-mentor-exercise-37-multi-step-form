@@ -1,11 +1,11 @@
 <section
-  class="msf flex w-full max-w-[686px] flex-col bg-white"
+  class="msf m-auto flex w-full flex-col md:flex-row md:gap-2.5 md:bg-white md:p-5"
   role="group"
   aria-labelledby="multiStepForm"
 >
   <h1 id="multiStepForm" class="sr-only">Multi-step form</h1>
-  <div class="msf__steps flex flex-col items-center justify-start">
-    <ul class="msf__list flex flex-row justify-center gap-3.5 md:flex-col md:gap-8">
+  <div class="msf__steps flex flex-col items-center justify-start md:items-start">
+    <ul class="msf__list flex flex-row justify-center gap-3.5 p-6 md:flex-col md:gap-8">
       @for (step of steps; track step) {
         <li
           class="msf__step"
@@ -29,5 +29,7 @@
       }
     </ul>
   </div>
-  <div id="msf__form"></div>
+  <div class="msf__form bg-amber-600">
+    <h1>Test</h1>
+  </div>
 </section>
