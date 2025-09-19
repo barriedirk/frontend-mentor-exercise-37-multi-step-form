@@ -2,10 +2,11 @@ import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, WritableSignal } from '@angular/core';
 
 import { signal } from '@angular/core';
+import { Form } from './components/form/form';
 
 @Component({
   selector: 'app-multi-step-form',
-  imports: [NgClass],
+  imports: [NgClass, Form],
   templateUrl: './multi-step-form.html',
   styleUrl: './multi-step-form.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
