@@ -1,3 +1,67 @@
-<div class="multi-form px-[22px] py-[35px]">
-  <h2 class="txt-blue-950 text-preset-2">Personal Info</h2>
+<div
+  class="mf px-[22px] py-[35px]"
+  aria-live="polite"
+  aria-labelledby="mf__title"
+  aria-describedby="mf__description"
+>
+  @if (currentStep() === 1) {
+    <h2 id="mf__title" class="txt-blue-950 text-preset-2">Personal Info</h2>
+    <p id="mf__description" class="text-preset-3-regular">
+      Please provide your name, email address, and phone number.
+    </p>
+
+    <form class="mf__form mt-8 flex flex-col gap-4">
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" name="name" maxlength="100" placeholder="e.g. Stephen King" />
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input
+          type="text"
+          name="email"
+          maxlength="100"
+          placeholder="e.g. stephenking@lorem.com"
+          inputmode="email"
+        />
+      </div>
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input
+          type="text"
+          name="phone"
+          maxlength="50"
+          placeholder="e.g. stephenking@lorem.com"
+          inputmode="tel"
+        />
+      </div>
+
+      <div class="mf__actions--wrapper flex items-center justify-center">
+        <div class="mf__actions flex w-full flex-row-reverse items-center">
+          <button class="primary">Next Step</button>
+        </div>
+      </div>
+    </form>
+  }
+
+  @if (currentStep() === 2) {
+    <h2 id="mf__title" class="txt-blue-950 text-preset-2">Select your plan</h2>
+    <p id="mf__description" class="text-preset-3-regular">
+      You have the option of monthly or yearly billing.
+    </p>
+  }
+
+  @if (currentStep() === 3) {
+    <h2 id="mf__title" class="txt-blue-950 text-preset-2">Pick add-ons</h2>
+    <p id="mf__description" class="text-preset-3-regular">
+      Add-ons help enhance your gaming experience.
+    </p>
+  }
+
+  @if (currentStep() === 4) {
+    <h2 id="mf__title" class="txt-blue-950 text-preset-2">Finishing up</h2>
+    <p id="mf__description" class="text-preset-3-regular">
+      Double-check everything looks OK before confirming.
+    </p>
+  }
 </div>

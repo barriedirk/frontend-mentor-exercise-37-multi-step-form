@@ -1,0 +1,29 @@
+button {
+  @apply text-preset-3-medium;
+  padding: 17px;
+  color: var(--clr-blue-950);
+  border-radius: 8px;
+}
+
+button.primary {
+  color: var(--clr-white);
+  background-color: var(--clr-blue-950);
+}
+
+button.primary:is(:hover, :active, :focus) {
+  background-color: var(--clr-blue-700);
+}
+
+button.secundary {
+  color: var(--clr-white);
+  background-color: var(--clr-purple-600);
+}
+
+button.secundary:is(:hover, :active, :focus) {
+  background-color: var(--clr-blue-400);
+}
+
+button:disabled {
+  opacity: 0.7;
+  pointer-events: none;
+}
