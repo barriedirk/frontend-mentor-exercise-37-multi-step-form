@@ -49,6 +49,16 @@
     <p id="mf__description" class="text-preset-3-regular">
       You have the option of monthly or yearly billing.
     </p>
+
+    <form class="mf__form mt-8 flex flex-col gap-4">
+      <div class="form-group"></div>
+      <div class="mf__actions--wrapper flex items-center justify-center">
+        <div class="mf__actions flex w-full items-center justify-between">
+          <button>Go Back</button>
+          <button class="primary">Next Step</button>
+        </div>
+      </div>
+    </form>
   }
 
   @if (currentStep() === 3) {
