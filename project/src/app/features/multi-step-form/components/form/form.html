@@ -50,8 +50,64 @@
       You have the option of monthly or yearly billing.
     </p>
 
-    <form class="mf__form mt-8 flex flex-col gap-4">
-      <div class="form-group"></div>
+    <form class="mf__form mt-8 flex flex-col gap-4 md:gap-8">
+      <div class="form-group">
+        <ul class="cards" role="radiogroup">
+          @for (plan of plans; track plan; let idx = $index) {
+            <!--
+            
+             @todo, don't forget to adapt
+            [attr.tabindex]="tip.value === tipValue ? 0 : -1"
+              [attr.aria-checked]="tip.value === tipValue" -->
+            <li #cardOption class="card" role="radio" (keydown)="keydownCard($event, idx)">
+              <input
+                class="card__radio"
+                [id]="plan.id"
+                type="radio"
+                name="plan"
+                [value]="plan.plan"
+                [attr.data-value]="plan.plan"
+              />
+              <label [for]="plan.id" class="card__wrapper">
+                <figure class="card__figure">
+                  <svg
+                    class="card__icon"
+                    viewBox="0 0 40 40"
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-[40px] w-[40px]"
+                  >
+                    <use [attr.href]="plan.svg" />
+                  </svg>
+                  <figcaption class="card__information">
+                    <h3 class="card__plan text-preset-3-medium txt-blue-950">{{ plan.plan }}</h3>
+                    <p class="card__price text-preset-4-regular txt-grey-500">
+                      ${{ plan.pricePerYear }}/yr
+                    </p>
+                    <p class="card__duration text-preset-5 txt-blue-950">{{ plan.duration }}</p>
+                  </figcaption>
+                </figure>
+              </label>
+            </li>
+          }
+        </ul>
+      </div>
+      <div class="form-group">
+        <div class="switch__wrapper">
+          <span class="text-preset-4-medium txt-blue-950">Monthly</span>
+          <div class="checkbox-switch">
+            <label class="switch" for="plan__duration">
+              <input
+                type="checkbox"
+                id="plan__duration"
+                aria-label="Toggle between Monthly and Yearly"
+              />
+              <span class="slider round"></span>
+            </label>
+          </div>
+          <span class="text-preset-4-medium txt-grey-500">Yearly</span>
+        </div>
+      </div>
+
       <div class="mf__actions--wrapper flex items-center justify-center">
         <div class="mf__actions flex w-full items-center justify-between">
           <button>Go Back</button>
