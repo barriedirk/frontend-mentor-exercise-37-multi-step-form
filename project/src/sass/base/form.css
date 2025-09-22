@@ -64,36 +64,20 @@ textarea:focus-visible {
   outline-offset: 2px;
 }
 
+.add-ons,
 .cards {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
+.add-on__figure,
 .card__figure {
   padding: 17px;
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 20px;
-}
-
-.card__radio {
-  appearance: none;
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-.card__figure {
-  display: flex;
-  flex-direction: row;
   width: 100%;
 }
 
@@ -109,6 +93,19 @@ textarea:focus-visible {
   grid-area: duration;
 }
 
+.add-on__label {
+  grid-area: label;
+}
+
+.add_on__information {
+  grid-area: information;
+}
+
+.add_on__price {
+  grid-area: price;
+  align-self: center;
+}
+
 .card__information {
   display: grid;
   grid-template-areas:
@@ -116,8 +113,20 @@ textarea:focus-visible {
     'price'
     'duration';
   row-gap: 4px;
+  width: 100%;
 }
 
+.add-on__information {
+  display: grid;
+  grid-template-areas:
+    'label price'
+    'information price';
+  grid-template-columns: 1fr auto;
+  row-gap: 4px;
+  width: 100%;
+}
+
+.add-on__wrapper,
 .card__wrapper {
   display: block;
   border: 1px solid var(--clr-purple-200);
@@ -125,9 +134,25 @@ textarea:focus-visible {
   cursor: pointer;
 }
 
+.add-on__square {
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  border-radius: 4px;
+  border: 1px solid var(--clr-purple-200);
+}
+
+input.add-on__checkbox:checked + .add-on__wrapper,
 input.card__radio:checked + .card__wrapper {
   background-color: var(--clr-blue-50);
   border-color: var(--clr-purple-600);
+}
+
+input.add-on__checkbox:checked + .add-on__wrapper .add-on__square {
+  background-color: var(--clr-purple-600);
+  background-image: url('/assets/images/icon-checkmark.svg');
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
 .form-group {
@@ -220,6 +245,10 @@ input.card__radio:checked + .card__wrapper {
   .card__duration {
     align-self: center;
   }
+
+  .add-ons {
+    gap: 20px;
+  }
 }
 
 @media screen and (min-width: 59em) {
@@ -239,6 +268,7 @@ input.card__radio:checked + .card__wrapper {
   .cards {
     flex-direction: row;
     align-items: self-start;
+    gap: 20px;
   }
 
   .card {

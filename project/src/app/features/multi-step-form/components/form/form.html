@@ -61,7 +61,7 @@
               [attr.aria-checked]="tip.value === tipValue" -->
             <li #cardOption class="card" role="radio" (keydown)="keydownCard($event, idx)">
               <input
-                class="card__radio"
+                class="card__radio visually-hidden"
                 [id]="plan.id"
                 type="radio"
                 name="plan"
@@ -122,6 +122,50 @@
     <p id="mf__description" class="text-preset-3-regular">
       Add-ons help enhance your gaming experience.
     </p>
+    <form class="mf__form mt-8 flex flex-col gap-4 md:gap-8">
+      <div class="form-group">
+        <ul class="add-ons" role="group">
+          @for (addOn of addOns; track addOn; let idx = $index) {
+            <li #addOnOption class="add-on" role="checkbox">
+              <input
+                class="add-on__checkbox visually-hidden"
+                [id]="addOn.id"
+                type="checkbox"
+                [name]="addOn.id"
+                [value]="addOn.value"
+                [attr.data-value]="addOn.value"
+              />
+              <label [for]="addOn.id" class="add-on__wrapper">
+                <figure class="add-on__figure">
+                  <span class="add-on__square"></span>
+                  <figcaption class="add-on__information">
+                    <h3
+                      class="add-on__label text-preset-4-medium txt-blue-950 md:text-preset-3-medium"
+                    >
+                      {{ addOn.label }}
+                    </h3>
+                    <p
+                      class="add_on__information text-preset-5 txt-grey-500 md:text-preset-4-regular"
+                    >
+                      {{ addOn.information }}
+                    </p>
+                    <p class="add_on__price text-preset-5 md:text-preset-4-regular txt-purple-600">
+                      +${{ addOn.price }}/mo
+                    </p>
+                  </figcaption>
+                </figure>
+              </label>
+            </li>
+          }
+        </ul>
+      </div>
+      <div class="mf__actions--wrapper flex items-center justify-center">
+        <div class="mf__actions flex w-full items-center justify-between">
+          <button>Go Back</button>
+          <button class="primary">Next Step</button>
+        </div>
+      </div>
+    </form>
   }
 
   @if (currentStep() === 4) {
