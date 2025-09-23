@@ -232,6 +232,32 @@ input.add-on__checkbox:checked + .add-on__wrapper .add-on__square {
   border-radius: 50%;
 }
 
+.choice__description {
+  grid-area: description;
+  align-self: start;
+  text-align: left;
+}
+
+.choice__action {
+  grid-area: action;
+  align-self: start;
+  text-align: left;
+}
+
+.choice__price {
+  grid-area: price;
+  align-self: center;
+}
+
+.choice__item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    'description price'
+    'action price';
+  width: 100%;
+}
+
 @media screen and (min-width: 48em) {
   .card__information {
     flex: 1;

@@ -44,3 +44,7 @@
   white-space: nowrap;
   border-width: 0;
 }
+
+@utility border-separator {
+  border-bottom: 1px solid hsl(230, 8%, 85%);
+}

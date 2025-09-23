@@ -57,6 +57,7 @@ export class Form {
     value: string;
     information: string;
     price: number;
+    priceYearly: number;
   }[] = [
     {
       id: 'online-services',
@@ -64,6 +65,7 @@ export class Form {
       value: 'Online service',
       information: 'Access to multiplayer games',
       price: 1,
+      priceYearly: 510,
     },
     {
       id: 'larger-storage',
@@ -71,6 +73,7 @@ export class Form {
       value: 'Larger Storage',
       information: 'Extra 1TB of cloud save',
       price: 2,
+      priceYearly: 520,
     },
     {
       id: 'customizable-profile',
@@ -78,6 +81,7 @@ export class Form {
       value: 'Customizable profile',
       information: 'Custom theme on your profile',
       price: 2,
+      priceYearly: 520,
     },
   ];
 

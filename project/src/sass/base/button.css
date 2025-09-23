@@ -1,11 +1,18 @@
-button {
+button.go-back {
   @apply text-preset-3-medium;
+
   padding: 17px;
   color: var(--clr-blue-950);
   border-radius: 8px;
 }
 
 button.primary {
+  @apply text-preset-3-medium;
+
+  padding: 17px;
+  color: var(--clr-blue-950);
+  border-radius: 8px;
+
   color: var(--clr-white);
   background-color: var(--clr-blue-950);
 }
@@ -15,6 +22,10 @@ button.primary:is(:hover, :active, :focus) {
 }
 
 button.secundary {
+  @apply text-preset-3-medium;
+
+  padding: 17px;
+  border-radius: 8px;
   color: var(--clr-white);
   background-color: var(--clr-purple-600);
 }
