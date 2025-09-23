@@ -12,6 +12,9 @@
   }
 
   &__form {
+    display: flex;
+    flex-direction: column;
+
     width: 100%;
     max-width: 343px;
     min-height: 390px;

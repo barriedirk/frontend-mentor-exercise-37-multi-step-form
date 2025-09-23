@@ -3,10 +3,11 @@ import { ChangeDetectionStrategy, Component, WritableSignal } from '@angular/cor
 
 import { signal } from '@angular/core';
 import { Form } from './components/form/form';
+import { ThankYou } from './components/thank-you/thank-you';
 
 @Component({
   selector: 'app-multi-step-form',
-  imports: [NgClass, Form],
+  imports: [NgClass, Form, ThankYou],
   templateUrl: './multi-step-form.html',
   styleUrl: './multi-step-form.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -19,4 +20,5 @@ export class MultiStepForm {
     { step: 4, label: 'Step 4', title: 'Summary' },
   ];
   currentStep: WritableSignal<number> = signal(4);
+  showThankYou: WritableSignal<boolean> = signal(true);
 }
