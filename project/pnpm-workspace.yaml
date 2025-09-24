@@ -8,4 +8,6 @@ minimumReleaseAgeExclude:
   - react
   - react-dom
 onlyBuiltDependencies:
+  - '@compodoc/compodoc'
   - '@tailwindcss/oxide'
+  - cypress

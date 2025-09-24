@@ -12,12 +12,44 @@
 
     <form class="mf__form mt-8 flex flex-col gap-4">
       <div class="form-group">
-        <label>Name</label>
-        <input type="text" name="name" maxlength="100" placeholder="e.g. Stephen King" />
+        <label for="name">Name</label>
+
+        @if (personalInfoForm.name().touched() && personalInfoForm.name().errors()) {
+          <span class="error">
+            @for (error of personalInfoForm.name().errors(); track $index) {
+              {{ error.message }}
+            }
+          </span>
+        }
+
+        <input
+          [control]="personalInfoForm.name"
+          [ngClass]="{
+            error: personalInfoForm.name().touched() && personalInfoForm.name().errors(),
+          }"
+          type="text"
+          id="name"
+          name="name"
+          maxlength="100"
+          placeholder="e.g. Stephen King"
+        />
       </div>
       <div class="form-group">
         <label>Email Address</label>
+
+        @if (personalInfoForm.email().touched() && personalInfoForm.email().errors()) {
+          <span class="error">
+            @for (error of personalInfoForm.email().errors(); track $index) {
+              {{ error.message }}
+            }
+          </span>
+        }
+
         <input
+          [control]="personalInfoForm.email"
+          [ngClass]="{
+            error: personalInfoForm.email().touched() && personalInfoForm.email().errors(),
+          }"
           type="text"
           name="email"
           maxlength="100"
@@ -27,18 +59,39 @@
       </div>
       <div class="form-group">
         <label>Phone Number</label>
+
+        @if (personalInfoForm.phone().touched() && personalInfoForm.phone().errors()) {
+          <span class="error">
+            @for (error of personalInfoForm.phone().errors(); track $index) {
+              {{ error.message }}
+            }
+          </span>
+        }
+
         <input
+          [control]="personalInfoForm.phone"
+          [ngClass]="{
+            error: personalInfoForm.phone().touched() && personalInfoForm.phone().errors(),
+          }"
           type="text"
           name="phone"
           maxlength="50"
-          placeholder="e.g. stephenking@lorem.com"
+          placeholder="e.g. +1 234 567 890"
           inputmode="tel"
+          appFormattedPhone
         />
       </div>
 
       <div class="mf__actions--wrapper flex items-center justify-center">
         <div class="mf__actions flex w-full flex-row-reverse items-center">
-          <button class="primary">Next Step</button>
+          <button
+            [disabled]="personalInfoForm().submitting() || !personalInfoForm().valid()"
+            class="primary"
+            type="button"
+            (click)="personalInfoSubmit()"
+          >
+            Next Step
+          </button>
         </div>
       </div>
     </form>
@@ -54,12 +107,14 @@
       <div class="form-group">
         <ul class="cards" role="radiogroup">
           @for (plan of plans; track plan; let idx = $index) {
-            <!--
-            
-             @todo, don't forget to adapt
-            [attr.tabindex]="tip.value === tipValue ? 0 : -1"
-              [attr.aria-checked]="tip.value === tipValue" -->
-            <li #cardOption class="card" role="radio" (keydown)="keydownCard($event, idx)">
+            <li
+              #cardOption
+              class="card"
+              role="radio"
+              (keydown)="keydownCard($event, idx)"
+              [attr.tabindex]="planForm()?.plan() === plan.plan ? 0 : -1"
+              [attr.aria-checked]="planForm()?.plan() === plan.plan"
+            >
               <input
                 class="card__radio visually-hidden"
                 [id]="plan.id"
@@ -67,6 +122,8 @@
                 name="plan"
                 [value]="plan.plan"
                 [attr.data-value]="plan.plan"
+                [checked]="planForm()?.plan === plan.plan"
+                (change)="planForm().controls.plan.set(plan.plan)"
               />
               <label [for]="plan.id" class="card__wrapper">
                 <figure class="card__figure">
@@ -93,10 +150,18 @@
       </div>
       <div class="form-group">
         <div class="switch__wrapper">
-          <span class="text-preset-4-medium txt-blue-950">Monthly</span>
+          <span
+            class="text-preset-4-medium"
+            [ngClass]="{
+              'txt-blue-950': !planForm.isYearly(),
+              'txt-grey-500': planForm.isYearly(),
+            }"
+            >Monthly</span
+          >
           <div class="checkbox-switch">
             <label class="switch" for="plan__duration">
               <input
+                [control]="planForm.isYearly"
                 type="checkbox"
                 id="plan__duration"
                 aria-label="Toggle between Monthly and Yearly"
@@ -104,14 +169,27 @@
               <span class="slider round"></span>
             </label>
           </div>
-          <span class="text-preset-4-medium txt-grey-500">Yearly</span>
+          <span
+            class="text-preset-4-medium"
+            [ngClass]="{
+              'txt-blue-950': planForm.isYearly(),
+              'txt-grey-500': !planForm.isYearly(),
+            }"
+            >Yearly</span
+          >
         </div>
       </div>
 
       <div class="mf__actions--wrapper flex items-center justify-center">
         <div class="mf__actions flex w-full items-center justify-between">
           <button class="go-back">Go Back</button>
-          <button class="primary">Next Step</button>
+          <button
+            class="primary"
+            [disabled]="planForm().submitting() || !planForm().valid()"
+            (click)="planSubmit()"
+          >
+            Next Step
+          </button>
         </div>
       </div>
     </form>

@@ -1,4 +1,5 @@
-import { DecimalPipe } from '@angular/common';
+import { Control, submit } from '@angular/forms/signals';
+import { NgClass } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -9,9 +10,14 @@ import {
   WritableSignal,
 } from '@angular/core';
 
+import { plans } from './plans';
+import { addOns } from './addOns';
+import { personalInfoSignal, personalInfoForm, planSignal, planForm } from './formsSignal';
+import { FormattedPhoneDirective } from '@app/shared/directives/formatted-phone-directive';
+
 @Component({
   selector: 'app-form',
-  imports: [DecimalPipe],
+  imports: [Control, FormattedPhoneDirective, NgClass],
   templateUrl: './form.html',
   styleUrl: './form.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -21,69 +27,14 @@ export class Form {
 
   @ViewChildren('cardOption') cardOption!: QueryList<ElementRef<HTMLElement>>;
 
-  plans: {
-    id: string;
-    svg: string;
-    plan: string;
-    pricePerYear: number;
-    duration: string;
-  }[] = [
-    {
-      id: 'plan-arcade',
-      svg: './assets/images/sprite-plan.svg#arcade',
-      plan: 'Arcade',
-      pricePerYear: 90,
-      duration: '2 months free',
-    },
-    {
-      id: 'plan-advanced',
-      svg: './assets/images/sprite-plan.svg#advanced',
-      plan: 'Advanced',
-      pricePerYear: 120,
-      duration: '2 months free',
-    },
-    {
-      id: 'plan-pro',
-      svg: './assets/images/sprite-plan.svg#pro',
-      plan: 'Pro',
-      pricePerYear: 120,
-      duration: '2 months free',
-    },
-  ];
+  protected readonly personalInfoSignal = personalInfoSignal;
+  protected readonly personalInfoForm = personalInfoForm(this.personalInfoSignal);
 
-  addOns: {
-    id: string;
-    label: string;
-    value: string;
-    information: string;
-    price: number;
-    priceYearly: number;
-  }[] = [
-    {
-      id: 'online-services',
-      label: 'Online service',
-      value: 'Online service',
-      information: 'Access to multiplayer games',
-      price: 1,
-      priceYearly: 510,
-    },
-    {
-      id: 'larger-storage',
-      label: 'Larger Storage',
-      value: 'Larger Storage',
-      information: 'Extra 1TB of cloud save',
-      price: 2,
-      priceYearly: 520,
-    },
-    {
-      id: 'customizable-profile',
-      label: 'Customizable profile',
-      value: 'Customizable profile',
-      information: 'Custom theme on your profile',
-      price: 2,
-      priceYearly: 520,
-    },
-  ];
+  protected readonly planSignal = planSignal;
+  protected readonly planForm = planForm(this.planSignal);
+
+  plans = plans;
+  addOns = addOns;
 
   // @todo, improve
   keydownCard(event: KeyboardEvent, index: number) {
@@ -117,5 +68,25 @@ export class Form {
       next.nativeElement.focus();
       next.nativeElement.querySelector('input[type="radio"]')?.dispatchEvent(new Event('click'));
     }
+  }
+
+  protected personalInfoSubmit() {
+    submit(this.personalInfoForm, async (form) => {
+      if (form().dirty() || form().touched()) {
+      }
+
+      console.log({ formValues: form().value() });
+    });
+  }
+
+  protected planSubmit() {
+    this.planForm();
+
+    submit(this.planForm, async (form) => {
+      if (form().dirty() || form().touched()) {
+      }
+
+      console.log({ formValues: form().value() });
+    });
   }
 }
