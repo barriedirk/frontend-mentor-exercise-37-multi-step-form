@@ -25,7 +25,7 @@
         <input
           [control]="personalInfoForm.name"
           [ngClass]="{
-            error: personalInfoForm.name().touched() && personalInfoForm.name().errors(),
+            error: personalInfoForm.name().touched() && personalInfoForm.name().errors().length > 0,
           }"
           type="text"
           id="name"
@@ -48,7 +48,8 @@
         <input
           [control]="personalInfoForm.email"
           [ngClass]="{
-            error: personalInfoForm.email().touched() && personalInfoForm.email().errors(),
+            error:
+              personalInfoForm.email().touched() && personalInfoForm.email().errors().length > 0,
           }"
           type="text"
           name="email"
@@ -71,7 +72,8 @@
         <input
           [control]="personalInfoForm.phone"
           [ngClass]="{
-            error: personalInfoForm.phone().touched() && personalInfoForm.phone().errors(),
+            error:
+              personalInfoForm.phone().touched() && personalInfoForm.phone().errors().length > 0,
           }"
           type="text"
           name="phone"
@@ -112,18 +114,18 @@
               class="card"
               role="radio"
               (keydown)="keydownCard($event, idx)"
-              [attr.tabindex]="planForm()?.plan() === plan.plan ? 0 : -1"
-              [attr.aria-checked]="planForm()?.plan() === plan.plan"
+              [attr.tabindex]="planForm.plan().value() === plan.plan ? 0 : -1"
+              [attr.aria-checked]="planForm.plan().value() === plan.plan"
             >
               <input
+                (change)="updatePlan(plan)"
                 class="card__radio visually-hidden"
                 [id]="plan.id"
                 type="radio"
                 name="plan"
                 [value]="plan.plan"
                 [attr.data-value]="plan.plan"
-                [checked]="planForm()?.plan === plan.plan"
-                (change)="planForm().controls.plan.set(plan.plan)"
+                [checked]="planForm.plan().value() === plan.plan"
               />
               <label [for]="plan.id" class="card__wrapper">
                 <figure class="card__figure">
@@ -153,8 +155,8 @@
           <span
             class="text-preset-4-medium"
             [ngClass]="{
-              'txt-blue-950': !planForm.isYearly(),
-              'txt-grey-500': planForm.isYearly(),
+              'txt-blue-950': !planForm.isYearly().value(),
+              'txt-grey-200': planForm.isYearly().value(),
             }"
             >Monthly</span
           >
@@ -165,6 +167,7 @@
                 type="checkbox"
                 id="plan__duration"
                 aria-label="Toggle between Monthly and Yearly"
+                (change)="updatePlanPrice()"
               />
               <span class="slider round"></span>
             </label>
@@ -172,8 +175,8 @@
           <span
             class="text-preset-4-medium"
             [ngClass]="{
-              'txt-blue-950': planForm.isYearly(),
-              'txt-grey-500': !planForm.isYearly(),
+              'txt-blue-950': planForm.isYearly().value(),
+              'txt-grey-200': !planForm.isYearly().value(),
             }"
             >Yearly</span
           >
@@ -182,8 +185,9 @@
 
       <div class="mf__actions--wrapper flex items-center justify-center">
         <div class="mf__actions flex w-full items-center justify-between">
-          <button class="go-back">Go Back</button>
+          <button type="button" class="go-back" (click)="goBack(1)">Go Back</button>
           <button
+            type="button"
             class="primary"
             [disabled]="planForm().submitting() || !planForm().valid()"
             (click)="planSubmit()"
@@ -200,6 +204,7 @@
     <p id="mf__description" class="text-preset-3-regular">
       Add-ons help enhance your gaming experience.
     </p>
+
     <form class="mf__form mt-8 flex flex-col gap-4 md:gap-8">
       <div class="form-group">
         <ul class="add-ons" role="group">
@@ -212,6 +217,8 @@
                 [name]="addOn.id"
                 [value]="addOn.value"
                 [attr.data-value]="addOn.value"
+                [checked]="!!addOnsForm.items().value()[addOn.id]"
+                (change)="addOrRemoveItem($event, addOn, idx)"
               />
               <label [for]="addOn.id" class="add-on__wrapper">
                 <figure class="add-on__figure">
@@ -228,7 +235,9 @@
                       {{ addOn.information }}
                     </p>
                     <p class="add_on__price text-preset-5 md:text-preset-4-regular txt-purple-600">
-                      +${{ addOn.price }}/mo
+                      +${{
+                        planForm.isYearly().value() ? addOn.priceYearly : addOn.priceMonthly
+                      }}/{{ planForm.isYearly().value() ? 'yr' : 'mo' }}
                     </p>
                   </figcaption>
                 </figure>
@@ -239,8 +248,15 @@
       </div>
       <div class="mf__actions--wrapper flex items-center justify-center">
         <div class="mf__actions flex w-full items-center justify-between">
-          <button class="go-back">Go Back</button>
-          <button class="primary">Next Step</button>
+          <button type="button" class="go-back" (click)="goBack(2)">Go Back</button>
+          <button
+            type="button"
+            [disabled]="addOnsForm().submitting() || !addOnsForm().valid()"
+            class="primary"
+            (click)="addOnsSubmit()"
+          >
+            Next Step
+          </button>
         </div>
       </div>
     </form>
@@ -285,8 +301,8 @@
       </div>
       <div class="mf__actions--wrapper flex items-center justify-center">
         <div class="mf__actions flex w-full items-center justify-between">
-          <button class="go-back">Go Back</button>
-          <button class="primary">Confirm</button>
+          <button type="button" (click)="goBack(2)" class="go-back">Go Back</button>
+          <button type="button" (click)="confirmSubmit()" class="primary">Confirm</button>
         </div>
       </div>
     </form>

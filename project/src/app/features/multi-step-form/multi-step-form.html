@@ -30,12 +30,12 @@
     </ul>
   </div>
   <div class="msf__form relative bg-white">
-    @if (showThankYou() && currentStep() === 4) {
+    @if (showThankYou()) {
       <div class="flex flex-1 items-center justify-center">
         <app-thank-you />
       </div>
     } @else {
-      <app-form [currentStep]="currentStep" />
+      <app-form (gotoStep)="gotoStep($event)" (gotoThankYou)="gotoThankYou($event)" />
     }
   </div>
 </section>

@@ -5,11 +5,6 @@ import { MainLayout } from '@app/layouts/main-layout/main-layout';
 export const routes: Routes = [
   {
     path: '',
-    pathMatch: 'full',
-    redirectTo: 'multi-step-form',
-  },
-  {
-    path: '',
     component: MainLayout,
     children: [
       {

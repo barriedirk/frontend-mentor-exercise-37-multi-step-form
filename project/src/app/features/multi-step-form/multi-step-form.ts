@@ -19,6 +19,16 @@ export class MultiStepForm {
     { step: 3, label: 'Step 3', title: 'Add-ons' },
     { step: 4, label: 'Step 4', title: 'Summary' },
   ];
-  currentStep: WritableSignal<number> = signal(2);
-  showThankYou: WritableSignal<boolean> = signal(true);
+
+  currentStep: WritableSignal<number> = signal(1);
+
+  protected gotoStep(step: number) {
+    this.currentStep.set(step);
+  }
+
+  protected gotoThankYou(value: boolean) {
+    this.showThankYou.set(value);
+  }
+
+  showThankYou: WritableSignal<boolean> = signal(false);
 }

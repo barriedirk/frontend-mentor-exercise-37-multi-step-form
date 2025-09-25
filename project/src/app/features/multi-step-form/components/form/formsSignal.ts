@@ -1,6 +1,6 @@
 import { apply, email, form, minLength, required, schema, Schema } from '@angular/forms/signals';
 import { signal, WritableSignal } from '@angular/core';
-import { PersonalInfo, Plan } from '@features/multi-step-form/models/form';
+import { AddOns, PersonalInfo, Plan } from '@features/multi-step-form/models/form';
 
 export const requiredSchema: Schema<string | null> = schema((path) => {
   required(path, { message: `This field is required` });
@@ -45,4 +45,12 @@ export const planSignal: WritableSignal<Plan> = signal<Plan>({
 
 export const planForm = (planSignal: WritableSignal<Plan>) => {
   return form(planSignal, (path) => [apply(path.plan, requiredSchema)]);
+};
+
+export const addOnsSignal: WritableSignal<AddOns> = signal<AddOns>({
+  items: {},
+});
+
+export const addOnsForm = (addOnsSignal: WritableSignal<AddOns>) => {
+  return form(addOnsSignal);
 };

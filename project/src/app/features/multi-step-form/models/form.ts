@@ -12,7 +12,12 @@ export interface Plan {
 
 export interface AddOns {
   items: {
-    addOn: string;
-    price: number;
-  }[];
+    [key: string]: AddOn;
+  };
+}
+
+export interface AddOn {
+  id: string;
+  addOn: string;
+  price: number;
 }
