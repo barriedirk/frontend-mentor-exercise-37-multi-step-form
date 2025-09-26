@@ -99,6 +99,9 @@
     </form>
   }
 
+  @let billingPerLarge = planForm.isYearly().value() ? 'year' : 'month';
+  @let billingPerShort = planForm.isYearly().value() ? 'yr' : 'mo';
+
   @if (currentStep() === 2) {
     <h2 id="mf__title" class="txt-blue-950 text-preset-2">Select your plan</h2>
     <p id="mf__description" class="text-preset-3-regular">
@@ -140,7 +143,7 @@
                   <figcaption class="card__information">
                     <h3 class="card__plan text-preset-3-medium txt-blue-950">{{ plan.plan }}</h3>
                     <p class="card__price text-preset-4-regular txt-grey-500">
-                      ${{ plan.pricePerYear }}/yr
+                      ${{ plan.pricePerYear }}/{{ billingPerShort }}
                     </p>
                     <p class="card__duration text-preset-5 txt-blue-950">{{ plan.duration }}</p>
                   </figcaption>
@@ -167,7 +170,7 @@
                 type="checkbox"
                 id="plan__duration"
                 aria-label="Toggle between Monthly and Yearly"
-                (change)="updatePlanPrice()"
+                (change)="updatePlanPrice(); updateAddOnPrices()"
               />
               <span class="slider round"></span>
             </label>
@@ -218,7 +221,7 @@
                 [value]="addOn.value"
                 [attr.data-value]="addOn.value"
                 [checked]="!!addOnsForm.items().value()[addOn.id]"
-                (change)="addOrRemoveItem($event, addOn, idx)"
+                (change)="addOrRemoveAddOn($event, addOn, idx)"
               />
               <label [for]="addOn.id" class="add-on__wrapper">
                 <figure class="add-on__figure">
@@ -237,7 +240,7 @@
                     <p class="add_on__price text-preset-5 md:text-preset-4-regular txt-purple-600">
                       +${{
                         planForm.isYearly().value() ? addOn.priceYearly : addOn.priceMonthly
-                      }}/{{ planForm.isYearly().value() ? 'yr' : 'mo' }}
+                      }}/{{ billingPerShort }}
                     </p>
                   </figcaption>
                 </figure>
@@ -274,34 +277,48 @@
             <p
               class="choice__description txt-blue-950 text-preset-4-medium md:text-preset-3-medium"
             >
-              Arcade (Yearly)
+              {{ planForm.plan().value() }} ({{
+                planForm.isYearly().value() ? 'Yearly' : 'Monthly'
+              }})
             </p>
-            <button type="button" class="choice__action text-preset-4-regular txt-grey-500">
+            <button
+              type="button"
+              class="choice__action text-preset-4-regular txt-grey-500"
+              (click)="goBack(2)"
+            >
               Change
             </button>
-            <span class="choice__price txt-blue-950 text-preset-4-bold">$90/yr</span>
+            <span class="choice__price txt-blue-950 text-preset-4-bold"
+              >${{ planForm.price().value() }}/{{ billingPerShort }}</span
+            >
           </li>
 
-          <li class="border-separator"></li>
+          @if (addOnList().length > 0) {
+            <li class="border-separator"></li>
 
-          <li class="choice__item pt-[20px]">
-            <p class="choice__description text-preset-4-regular txt-grey-500">Online service</p>
-            <p class="choice__price text-preset-4-regular txt-blue-95">+$10/yr</p>
-          </li>
-
-          <li class="choice__item pt-[20px]">
-            <p class="choice__description text-preset-4-regular txt-grey-500">Larger storage</p>
-            <p class="choice__price text-preset-4-regular txt-blue-95">+$20/yr</p>
-          </li>
+            @for (item of addOnList(); track item) {
+              <li class="choice__item pt-[20px]">
+                <p class="choice__description text-preset-4-regular txt-grey-500">
+                  {{ item.addOn }}
+                </p>
+                <p class="choice__price text-preset-4-regular txt-blue-95">
+                  +${{ item.price }}/{{ billingPerShort }}
+                </p>
+              </li>
+            }
+          }
         </ul>
       </div>
+
       <div class="flex flex-row items-center justify-between p-[15px]">
-        <p class="text-preset-4-regular txt-grey-500">Total (per month)</p>
-        <p class="text-preset-3-medium txt-purple-600 md:font-size-20">+$120/yr</p>
+        <p class="text-preset-4-regular txt-grey-500">Total (per {{ billingPerLarge }})</p>
+        <p class="text-preset-3-medium txt-purple-600 md:font-size-20">
+          +${{ total() }}/{{ billingPerShort }}
+        </p>
       </div>
       <div class="mf__actions--wrapper flex items-center justify-center">
         <div class="mf__actions flex w-full items-center justify-between">
-          <button type="button" (click)="goBack(2)" class="go-back">Go Back</button>
+          <button type="button" (click)="goBack(3)" class="go-back">Go Back</button>
           <button type="button" (click)="confirmSubmit()" class="primary">Confirm</button>
         </div>
       </div>

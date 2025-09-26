@@ -35,7 +35,11 @@
         <app-thank-you />
       </div>
     } @else {
-      <app-form (gotoStep)="gotoStep($event)" (gotoThankYou)="gotoThankYou($event)" />
+      <app-form
+        [currentStep]="currentStep"
+        (gotoStep)="gotoStep($event)"
+        (gotoThankYou)="gotoThankYou($event)"
+      />
     }
   </div>
 </section>

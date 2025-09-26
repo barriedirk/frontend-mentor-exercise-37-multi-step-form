@@ -1,4 +1,4 @@
-import { Control, submit } from '@angular/forms/signals';
+import { Control } from '@angular/forms/signals';
 import { JsonPipe, NgClass } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -8,10 +8,10 @@ import {
   Input,
   Output,
   QueryList,
-  signal,
   ViewChildren,
   WritableSignal,
 } from '@angular/core';
+import { signal, computed } from '@angular/core';
 
 import { Plan, plans } from './plans';
 import { AddOn, addOns } from './addOns';
@@ -35,10 +35,10 @@ import { FormattedPhoneDirective } from '@app/shared/directives/formatted-phone-
 export class Form {
   @ViewChildren('cardOption') cardOption!: QueryList<ElementRef<HTMLElement>>;
 
+  @Input() currentStep!: WritableSignal<number>;
+
   @Output() gotoStep = new EventEmitter<number>();
   @Output() gotoThankYou = new EventEmitter<boolean>();
-
-  currentStep: WritableSignal<number> = signal(1);
 
   protected readonly personalInfoSignal = personalInfoSignal;
   protected readonly personalInfoForm = personalInfoForm(this.personalInfoSignal);
@@ -48,6 +48,20 @@ export class Form {
 
   protected readonly addOnsSignal = addOnsSignal;
   protected readonly addOnsForm = addOnsForm(this.addOnsSignal);
+
+  addOnList = computed(() => Object.values(this.addOnsForm.items().value()));
+
+  total = computed(() => {
+    const addOnList = Object.values(this.addOnsForm.items().value());
+
+    let total = this.planForm.price().value();
+
+    for (const item of addOnList) {
+      total += item.price;
+    }
+
+    return total;
+  });
 
   plans = plans;
   addOns = addOns;
@@ -105,7 +119,7 @@ export class Form {
     this.planForm.price().value.set(isYearly === false ? plan.pricePerMonth : plan.pricePerYear);
   }
 
-  protected addOrRemoveItem(event: Event, addOn: AddOn, idx: number) {
+  protected addOrRemoveAddOn(event: Event, addOn: AddOn, idx: number) {
     const isYearly = this.planForm.isYearly().value();
     const isChecked = (event.target as HTMLInputElement).checked;
     const items = structuredClone(this.addOnsForm.items().value());
@@ -120,9 +134,24 @@ export class Form {
       delete items[addOn.id];
     }
 
-    console.log('Input value changed:', isChecked, addOn, idx);
-
     this.addOnsForm.items().value.set(items);
+  }
+
+  protected updateAddOnPrices() {
+    const items = structuredClone(this.addOnsForm.items().value());
+    const keys = Object.keys(items);
+
+    if (keys.length > 0) {
+      const isYearly = this.planForm.isYearly().value();
+
+      for (const addOn of this.addOns) {
+        if (keys.includes(addOn.id)) {
+          items[addOn.id].price = isYearly ? addOn.priceYearly : addOn.priceMonthly;
+        }
+      }
+
+      this.addOnsForm.items().value.set(items);
+    }
   }
 
   protected printValues() {
@@ -140,28 +169,28 @@ export class Form {
   protected goBack(step: number) {
     this.printValues();
 
-    this.currentStep.set(step);
+    // this.currentStep.set(step);
     this.gotoStep.emit(step);
   }
 
   protected personalInfoSubmit() {
     this.printValues();
 
-    this.currentStep.set(2);
+    // this.currentStep.set(2);
     this.gotoStep.emit(2);
   }
 
   protected planSubmit() {
     this.printValues();
 
-    this.currentStep.set(3);
+    // this.currentStep.set(3);
     this.gotoStep.emit(3);
   }
 
   protected addOnsSubmit() {
     this.printValues();
 
-    this.currentStep.set(4);
+    // this.currentStep.set(4);
     this.gotoStep.emit(4);
   }
 
