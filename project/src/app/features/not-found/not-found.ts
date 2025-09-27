@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-not-found',
-  imports: [RouterLink],
+  imports: [],
   template: `
     <div class="txt-grey-800 mt-10 flex flex-col items-center justify-center text-center">
       <h1 class="text-4xl font-bold">404</h1>

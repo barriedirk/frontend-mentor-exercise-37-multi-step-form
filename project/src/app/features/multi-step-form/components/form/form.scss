@@ -162,8 +162,12 @@ input.add-on__checkbox:checked + .add-on__wrapper .add-on__square {
   height: var(--switch-height);
 }
 
-.checkbox-switch .switch input {
-  display: none;
+.switch input:focus-visible + .slider {
+  outline: 2px solid var(--clr-purple-600);
+  outline-offset: 2px;
+  border-radius: 34px;
+
+  box-shadow: 0 0 0 3px var(--clr-purple-200);
 }
 
 .checkbox-switch .slider {

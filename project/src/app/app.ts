@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { RouteDebuggerComponent } from './route-debugger-component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouteDebuggerComponent],
+  imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })

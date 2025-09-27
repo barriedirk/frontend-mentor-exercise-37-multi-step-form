@@ -3,14 +3,18 @@
   role="group"
   aria-labelledby="multiStepForm"
 >
-  <h1 id="multiStepForm" class="sr-only">Multi-step form</h1>
-  <div class="msf__steps flex flex-col items-center justify-start md:items-start">
-    <ul class="msf__list flex flex-row justify-center gap-3.5 p-6 md:flex-col md:gap-8">
+  <h1 id="multiStepForm" class="sr-only" data-cy="title">Multi-step form</h1>
+  <div
+    class="msf__steps flex flex-col items-center justify-start md:items-start"
+    aria-label="Form progress"
+  >
+    <ol class="msf__list flex flex-row justify-center gap-3.5 p-6 md:flex-col md:gap-8">
       @for (step of steps; track step) {
         <li
           class="msf__step"
           [attr.aria-current]="step.step === currentStep() ? 'step' : null"
           [attr.aria-label]="`${step.step} - ${step.label} ${step.title}`"
+          [attr.data-cy]="`step-` + step.step"
         >
           <span
             class="msf__badge text-preset-4-bold radious flex h-[33px] w-[33px] items-center justify-center rounded-full border border-solid border-white"
@@ -19,23 +23,41 @@
               'txt-blue-950': step.step === currentStep(),
               'txt-white': step.step !== currentStep(),
             }"
+            aria-hidden="true"
             >{{ step.step }}</span
           >
-          <div class="msf__description flex flex-col gap-1">
+
+          <span class="sr-only">
+            Step {{ step.step }} of {{ steps.length }}: {{ step.label }} – {{ step.title }}
+            {{ step.step === currentStep() ? '(current step)' : '' }}
+          </span>
+
+          <div class="msf__description flex flex-col gap-1" aria-hidden="true">
             <span class="msf__label text-preset-5 txt-blue-300">{{ step.label }}</span>
             <strong class="msf__title text-preset-4-bold txt-white">{{ step.title }}</strong>
           </div>
         </li>
       }
-    </ul>
+    </ol>
   </div>
-  <div class="msf__form relative bg-white">
+  <div
+    class="msf__form relative bg-white"
+    role="region"
+    [attr.aria-labelledby]="'step-title-' + currentStep()"
+    data-cy="step-body"
+  >
     @if (showThankYou()) {
-      <div class="flex flex-1 items-center justify-center">
+      <div
+        class="flex flex-1 items-center justify-center"
+        aria-live="polite"
+        data-cy="step-thankyou"
+      >
         <app-thank-you />
       </div>
     } @else {
       <app-form
+        class="flex-1"
+        data-cy="step-app-form"
         [currentStep]="currentStep"
         (gotoStep)="gotoStep($event)"
         (gotoThankYou)="gotoThankYou($event)"

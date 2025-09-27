@@ -1,5 +1,5 @@
 import { Control } from '@angular/forms/signals';
-import { JsonPipe, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -11,7 +11,7 @@ import {
   ViewChildren,
   WritableSignal,
 } from '@angular/core';
-import { signal, computed } from '@angular/core';
+import { computed } from '@angular/core';
 
 import { Plan, plans } from './plans';
 import { AddOn, addOns } from './addOns';
@@ -24,16 +24,19 @@ import {
   addOnsForm,
 } from './formsSignal';
 import { FormattedPhoneDirective } from '@app/shared/directives/formatted-phone-directive';
+import { AutoFocusDirective } from '@app/shared/directives/auto-focus-directive';
 
 @Component({
   selector: 'app-form',
-  imports: [Control, FormattedPhoneDirective, NgClass, JsonPipe],
+  imports: [Control, FormattedPhoneDirective, NgClass, AutoFocusDirective],
   templateUrl: './form.html',
   styleUrl: './form.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Form {
   @ViewChildren('cardOption') cardOption!: QueryList<ElementRef<HTMLElement>>;
+
+  @ViewChildren('addOnOption') addOnOption!: QueryList<ElementRef<HTMLElement>>;
 
   @Input() currentStep!: WritableSignal<number>;
 
@@ -66,37 +69,90 @@ export class Form {
   plans = plans;
   addOns = addOns;
 
-  // @todo, improve
-  keydownCard(event: KeyboardEvent, index: number) {
+  keydownAddOn(event: KeyboardEvent, index: number): void {
+    const checkboxes = this.addOnOption.toArray();
+    const currentCheckbox = checkboxes[index];
+
+    if (!currentCheckbox) return;
+
+    const checkboxInput =
+      currentCheckbox.nativeElement.querySelector<HTMLInputElement>('input[type="checkbox"]');
+
+    if (!checkboxInput) return;
+
+    const focus = (el: ElementRef<HTMLElement>) => {
+      const input = el.nativeElement.querySelector<HTMLInputElement>('input[type="checkbox"]');
+
+      if (input) {
+        el.nativeElement.focus();
+      }
+    };
+
+    switch (event.key) {
+      case 'Enter':
+      case ' ':
+        event.preventDefault();
+
+        checkboxInput.click();
+        break;
+
+      case 'ArrowLeft':
+      case 'ArrowUp':
+        event.preventDefault();
+        const prev = checkboxes[(index - 1 + checkboxes.length) % checkboxes.length];
+        focus(prev);
+        break;
+
+      case 'ArrowRight':
+      case 'ArrowDown':
+        event.preventDefault();
+        const next = checkboxes[(index + 1) % checkboxes.length];
+        focus(next);
+        break;
+    }
+  }
+
+  keydownCard(event: KeyboardEvent, index: number): void {
     const radios = this.cardOption.toArray();
+    const currentRadio = radios[index];
 
-    if (event.key === 'Enter') {
-      event.preventDefault();
+    if (!currentRadio) return;
 
-      const currentRadio =
-        radios[index]?.nativeElement.querySelector<HTMLInputElement>('input[type="radio"]');
+    const radioInput =
+      currentRadio.nativeElement.querySelector<HTMLInputElement>('input[type="radio"]');
 
-      if (!currentRadio) return;
+    if (!radioInput) return;
 
-      currentRadio.click();
-    }
+    const focusAndSelect = (el: ElementRef<HTMLElement>) => {
+      const input = el.nativeElement.querySelector<HTMLInputElement>('input[type="radio"]');
+      if (input) {
+        input.click();
+        el.nativeElement.focus();
+      }
+    };
 
-    if (['ArrowLeft', 'ArrowUp'].includes(event.key)) {
-      event.preventDefault();
+    switch (event.key) {
+      case 'Enter':
+      case ' ':
+        event.preventDefault();
 
-      const prev = radios[(index - 1 + radios.length) % radios.length];
+        radioInput.click();
 
-      prev.nativeElement.focus();
-      prev.nativeElement.querySelector('input[type="radio"]')?.dispatchEvent(new Event('click'));
-    }
+        break;
 
-    if (['ArrowRight', 'ArrowDown'].includes(event.key)) {
-      event.preventDefault();
+      case 'ArrowLeft':
+      case 'ArrowUp':
+        event.preventDefault();
+        const prev = radios[(index - 1 + radios.length) % radios.length];
+        focusAndSelect(prev);
+        break;
 
-      const next = radios[(index + 1) % radios.length];
-
-      next.nativeElement.focus();
-      next.nativeElement.querySelector('input[type="radio"]')?.dispatchEvent(new Event('click'));
+      case 'ArrowRight':
+      case 'ArrowDown':
+        event.preventDefault();
+        const next = radios[(index + 1) % radios.length];
+        focusAndSelect(next);
+        break;
     }
   }
 
@@ -154,12 +210,16 @@ export class Form {
     }
   }
 
-  protected printValues() {
-    const personalInfo = this.personalInfoForm().value();
-    const planForm = this.planForm().value();
-    const addOnsForm = this.addOnsForm().value();
+  protected testConsoleValues() {
+    // const personalInfo = this.personalInfoForm().value();
+    // const planForm = this.planForm().value();
+    // const addOnsForm = this.addOnsForm().value();
 
-    console.log('printValues', {
+    const personalInfo = this.personalInfoSignal();
+    const planForm = this.planSignal();
+    const addOnsForm = this.addOnsSignal();
+
+    console.log('testConsoleValues', {
       personalInfo,
       planForm,
       addOnsForm,
@@ -167,35 +227,32 @@ export class Form {
   }
 
   protected goBack(step: number) {
-    this.printValues();
+    this.testConsoleValues();
 
-    // this.currentStep.set(step);
     this.gotoStep.emit(step);
   }
 
   protected personalInfoSubmit() {
-    this.printValues();
+    this.testConsoleValues();
 
-    // this.currentStep.set(2);
     this.gotoStep.emit(2);
   }
 
   protected planSubmit() {
-    this.printValues();
+    this.testConsoleValues();
 
-    // this.currentStep.set(3);
     this.gotoStep.emit(3);
   }
 
   protected addOnsSubmit() {
-    this.printValues();
+    this.testConsoleValues();
 
     // this.currentStep.set(4);
     this.gotoStep.emit(4);
   }
 
   protected confirmSubmit() {
-    this.printValues();
+    this.testConsoleValues();
 
     this.gotoThankYou.emit(true);
   }
