@@ -7,7 +7,11 @@
   data-cy="step-container-form"
 >
   @if (currentStep() === 1) {
-    <h2 id="mf__title" class="txt-blue-950 text-preset-2" data-cy="step-form-title">
+    <h2
+      id="mf__title"
+      class="txt-blue-950 text-preset-2 md:text-preset-1 mb-[10px]"
+      data-cy="step-form-title"
+    >
       Personal Info
     </h2>
     <p id="mf__description" class="text-preset-3-regular">
@@ -127,7 +131,11 @@
   @let billingPerShort = planForm.isYearly().value() ? 'yr' : 'mo';
 
   @if (currentStep() === 2) {
-    <h2 id="mf__title" class="txt-blue-950 text-preset-2" data-cy="step-form-title">
+    <h2
+      id="mf__title"
+      class="txt-blue-950 text-preset-2 md:text-preset-1 mb-[10px]"
+      data-cy="step-form-title"
+    >
       Select your plan
     </h2>
     <p id="mf__description" class="text-preset-3-regular">
@@ -242,7 +250,11 @@
   }
 
   @if (currentStep() === 3) {
-    <h2 id="mf__title" class="txt-blue-950 text-preset-2" data-cy="step-form-title">
+    <h2
+      id="mf__title"
+      class="txt-blue-950 text-preset-2 md:text-preset-1 mb-[10px]"
+      data-cy="step-form-title"
+    >
       Pick add-ons
     </h2>
     <p id="mf__description" class="text-preset-3-regular">
@@ -321,7 +333,11 @@
   }
 
   @if (currentStep() === 4) {
-    <h2 id="mf__title" class="txt-blue-950 text-preset-2" data-cy="step-form-title">
+    <h2
+      id="mf__title"
+      class="txt-blue-950 text-preset-2 md:text-preset-1 mb-[10px]"
+      data-cy="step-form-title"
+    >
       Finishing up
     </h2>
     <p id="mf__description" class="text-preset-3-regular">
