@@ -119,7 +119,7 @@ input.card__radio:checked + .card__wrapper {
 
 input.add-on__checkbox:checked + .add-on__wrapper .add-on__square {
   background-color: var(--clr-purple-600);
-  background-image: url('/assets/images/icon-checkmark.svg');
+  background-image: url('src/assets/images/icon-checkmark.svg');
   background-repeat: no-repeat;
   background-position: center center;
 }
