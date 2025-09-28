@@ -180,7 +180,9 @@
                   <figcaption class="card__information">
                     <h3 class="card__plan text-preset-3-medium txt-blue-950">{{ plan.plan }}</h3>
                     <p class="card__price text-preset-4-regular txt-grey-500">
-                      ${{ plan.pricePerYear }}/{{ billingPerShort }}
+                      ${{ planForm.isYearly().value() ? plan.pricePerYear : plan.pricePerMonth }}/{{
+                        billingPerShort
+                      }}
                     </p>
                     <p class="card__duration text-preset-5 txt-blue-950">{{ plan.duration }}</p>
                   </figcaption>
@@ -277,8 +279,8 @@
             >
               <input
                 class="add-on__checkbox visually-hidden"
-                [id]="addOn.id"
                 type="checkbox"
+                [id]="addOn.id"
                 [name]="addOn.id"
                 [value]="addOn.value"
                 [attr.data-value]="addOn.value"
@@ -363,7 +365,9 @@
             >
               Change
             </button>
-            <span class="choice__price txt-blue-950 text-preset-4-bold"
+            <span
+              class="choice__price txt-blue-950 text-preset-4-bold"
+              data-cy="step-summary-plan-price"
               >${{ planForm.price().value() }}/{{ billingPerShort }}</span
             >
           </li>
@@ -372,11 +376,17 @@
             <li class="border-separator"></li>
 
             @for (item of addOnList(); track item; let idx = $index) {
-              <li class="choice__item pt-[20px]" [attr.data-cy]="'step-summary-item' + idx">
-                <p class="choice__description text-preset-4-regular txt-grey-500">
+              <li class="choice__item pt-[20px]" [attr.data-cy]="'step-summary-item-' + idx">
+                <p
+                  class="choice__description text-preset-4-regular txt-grey-500"
+                  [attr.data-cy]="'step-summary-item-addon-' + idx"
+                >
                   {{ item.addOn }}
                 </p>
-                <p class="choice__price text-preset-4-regular txt-blue-95">
+                <p
+                  class="choice__price text-preset-4-regular txt-blue-95"
+                  [attr.data-cy]="'step-summary-item-addon-price-' + idx"
+                >
                   +${{ item.price }}/{{ billingPerShort }}
                 </p>
               </li>

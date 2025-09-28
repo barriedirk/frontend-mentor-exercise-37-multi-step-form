@@ -227,32 +227,36 @@ export class Form {
   }
 
   protected goBack(step: number) {
-    this.testConsoleValues();
+    // @todo, only for test
+    // this.testConsoleValues();
 
     this.gotoStep.emit(step);
   }
 
   protected personalInfoSubmit() {
-    this.testConsoleValues();
+    // @todo, only for test
+    // this.testConsoleValues();
 
     this.gotoStep.emit(2);
   }
 
   protected planSubmit() {
-    this.testConsoleValues();
+    // @todo, only for test
+    // this.testConsoleValues();
 
     this.gotoStep.emit(3);
   }
 
   protected addOnsSubmit() {
-    this.testConsoleValues();
+    // @todo, only for test
+    // this.testConsoleValues();
 
-    // this.currentStep.set(4);
     this.gotoStep.emit(4);
   }
 
   protected confirmSubmit() {
-    this.testConsoleValues();
+    // @todo, only for test
+    // this.testConsoleValues();
 
     this.gotoThankYou.emit(true);
   }

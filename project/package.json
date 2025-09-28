@@ -16,7 +16,8 @@
     "test:ci": "ng test --watch=false --browsers=ChromeHeadless",
     "compodoc": "compodoc -p tsconfig.app.json -s",
     "cy:open": "cypress open",
-    "cy:run": "cypress run"
+    "cy:run": "cypress run",
+    "cy:form": "cypress run --e2e --spec \"cypress/e2e/multi-step-form.cy.ts\""
   },
   "private": true,
   "dependencies": {
