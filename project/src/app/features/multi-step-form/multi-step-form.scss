@@ -4,7 +4,7 @@
   max-width: 686px;
 
   &__steps {
-    background-image: url('/assets/images/bg-sidebar-mobile.svg');
+    background-image: url('src/assets/images/bg-sidebar-mobile.svg');
     background-repeat: no-repeat;
     background-size: cover;
     background-color: var(--clr-purple-500);
@@ -48,7 +48,7 @@
     box-shadow: 0px 25px 40px -20px rgba(0, 0, 0, 0.0951);
 
     &__steps {
-      background-image: url('/assets/images/bg-sidebar-desktop.svg');
+      background-image: url('src/assets/images/bg-sidebar-desktop.svg');
       background-color: var(--clr-purple-500);
       height: 568px;
       width: 208px;
