@@ -50,7 +50,7 @@
         />
       </div>
       <div class="form-group">
-        <label>Email Address</label>
+        <label for="email">Email Address</label>
 
         @if (personalInfoForm.email().touched() && personalInfoForm.email().errors()) {
           <span class="error" id="email-error" role="alert">
@@ -80,7 +80,7 @@
         />
       </div>
       <div class="form-group">
-        <label>Phone Number</label>
+        <label for="phone">Phone Number</label>
 
         @if (personalInfoForm.phone().touched() && personalInfoForm.phone().errors()) {
           <span class="error" id="phone-error" role="alert">

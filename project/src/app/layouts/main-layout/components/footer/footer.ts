@@ -7,7 +7,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
     <footer class="text-preset-3 txt-purple-200 py-4 text-center text-xs">
       Challenge by
       <a
-        className="m-0.5 "
+        class="m-0.5"
         href="https://www.frontendmentor.io/profile/barriedirk/solutions"
         target="_blank"
         rel="noopener"
