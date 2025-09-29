@@ -184,7 +184,9 @@
                         billingPerShort
                       }}
                     </p>
-                    <p class="card__duration text-preset-5 txt-blue-950">{{ plan.duration }}</p>
+                    <p class="card__duration text-preset-5 txt-blue-950">
+                      {{ planForm.isYearly().value() ? plan.duration : '' }}
+                    </p>
                   </figcaption>
                 </figure>
               </label>
